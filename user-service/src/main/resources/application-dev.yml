@@ -20,7 +20,7 @@ spring:
   datasource: #以下数据库部分自行修改
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/oauth_db?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost/db_user?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
     dbcp2:
