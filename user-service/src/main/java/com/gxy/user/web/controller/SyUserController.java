@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 
 import com.gxy.client.base.CommonResult;
@@ -104,4 +105,5 @@ public class SyUserController extends BaseControllerImpl<SyUserDO, SyUserQueryDO
         CommonResult<SyUserDO> query =baseService.getSyUserDOByUserName(username);
         return query;
     }
+
 }

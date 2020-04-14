@@ -1,5 +1,6 @@
 package com.gxy.user.web.api;
 
+import com.gxy.user.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 
 import com.gxy.client.base.CommonResult;
@@ -31,7 +33,9 @@ import com.gxy.user.client.query.SyUserQueryDO;
 public class SyUserApi extends BaseControllerImpl<SyUserDO, SyUserQueryDO> {
 
     @Autowired
-    private SyUserService baseService;
+    SyUserService baseService;
+    @Autowired
+    LoginService loginService;
 
     @Override
     public BaseServiceAO<SyUserDO, SyUserQueryDO> getService() {
@@ -98,5 +102,12 @@ public class SyUserApi extends BaseControllerImpl<SyUserDO, SyUserQueryDO> {
     @RequestMapping("add")
     public CommonResult<SyUserDO> insert(@RequestBody SyUserDO t) {
         return getService().save(t);
+    }
+
+    @ApiOperation(value = "登录接口", httpMethod = "POST", notes = "登录接口")
+    @RequestMapping("login")
+    public CommonResult<Map> login(@RequestBody SyUserDO syUserDO) {
+        CommonResult<Map> mapCommonResult = loginService.doLogin(syUserDO.getUsername(), syUserDO.getPassword());
+        return mapCommonResult;
     }
 }
