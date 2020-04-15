@@ -1,5 +1,8 @@
 package com.gxy.user.web.api;
 
+import com.gxy.annotation.NeedLogin;
+import com.gxy.client.base.SessionUserVO;
+import com.gxy.client.base.SessionUtils;
 import com.gxy.user.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,7 +67,10 @@ public class SyUserApi extends BaseControllerImpl<SyUserDO, SyUserQueryDO> {
      */
     @ApiOperation(value = "获取详情", httpMethod = "GET", notes = "获取详情")
     @RequestMapping("get")
+    @NeedLogin
     public CommonResult<SyUserDO> detail(@RequestParam("id") Long id) {
+        SessionUserVO userInfo = SessionUtils.getUserInfo();
+        System.out.println(userInfo.getUserId());
         return getService().get(id);
     }
 

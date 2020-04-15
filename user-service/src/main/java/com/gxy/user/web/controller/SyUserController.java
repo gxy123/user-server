@@ -1,5 +1,6 @@
 package com.gxy.user.web.controller;
 
+import com.gxy.user.client.vo.SyUserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -103,6 +104,12 @@ public class SyUserController extends BaseControllerImpl<SyUserDO, SyUserQueryDO
     @RequestMapping("getUser/{username}")
     public CommonResult<SyUserDO> getUserByUserName(@PathVariable("username") String username) {
         CommonResult<SyUserDO> query =baseService.getSyUserDOByUserName(username);
+        return query;
+    }
+    @ApiOperation(value = "通过用户名查找用户信息", httpMethod = "GET", notes = "通过用户名查找用户信息")
+    @RequestMapping("getUserVO/{username}")
+    public CommonResult<SyUserVO> getUserVOByUserName(@PathVariable("username") String username) {
+        CommonResult<SyUserVO> query =baseService.getSyUserVOByUserName(username);
         return query;
     }
 

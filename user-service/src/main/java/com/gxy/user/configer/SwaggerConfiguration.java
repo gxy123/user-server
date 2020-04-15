@@ -6,11 +6,14 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.google.common.collect.Lists;
 import com.gxy.service.base.DateUtil;
 import com.gxy.service.base.EnvironmentDefine;
+import com.gxy.user.interceptor.SecurityInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -38,7 +41,8 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration implements WebMvcConfigurer {
-
+    @Autowired
+    private SecurityInterceptor securityInterceptor;
     @Resource
     private EnvironmentDefine environmentDefine;
     @Bean
@@ -108,5 +112,10 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
         objectMapper.registerModule(simpleModule);
         longConverter.setObjectMapper(objectMapper);
         return longConverter;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(securityInterceptor).addPathPatterns("/api/**");//只拦截api接口请求
     }
 }
