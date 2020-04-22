@@ -1,28 +1,24 @@
 package com.gxy.user.web.api;
 
 import com.gxy.annotation.NeedLogin;
+import com.gxy.client.base.CommonResult;
 import com.gxy.client.base.SessionUserVO;
 import com.gxy.client.base.SessionUtils;
-import com.gxy.user.service.LoginService;
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
-
-
-import com.gxy.client.base.CommonResult;
-import com.gxy.user.service.SyUserService;
 import com.gxy.service.base.BaseControllerImpl;
 import com.gxy.service.base.BaseServiceAO;
 import com.gxy.user.client.domain.SyUserDO;
 import com.gxy.user.client.query.SyUserQueryDO;
+import com.gxy.user.service.LoginService;
+import com.gxy.user.service.SyUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author guoxiaoyu
@@ -69,8 +65,7 @@ public class SyUserApi extends BaseControllerImpl<SyUserDO, SyUserQueryDO> {
     @RequestMapping("get")
     @NeedLogin
     public CommonResult<SyUserDO> detail(@RequestParam("id") Long id) {
-        SessionUserVO userInfo = SessionUtils.getUserInfo();
-        System.out.println(userInfo.getUserId());
+        log.info("sdfsdf={}",SessionUtils.getUserInfo().getUserId());
         return getService().get(id);
     }
 
@@ -80,9 +75,9 @@ public class SyUserApi extends BaseControllerImpl<SyUserDO, SyUserQueryDO> {
      * @param t
      * @return
      */
-    @ApiOperation(value = "通用更新逻辑", httpMethod = "GET", notes = "通用更新逻辑")
+    @ApiOperation(value = "通用更新逻辑", httpMethod = "POST", notes = "通用更新逻辑")
     @RequestMapping("update")
-    public CommonResult<Long> update(@ModelAttribute("pojo") SyUserDO t) {
+    public CommonResult<Long> update(@RequestBody SyUserDO t) {
         return getService().modify(t);
     }
 
@@ -114,6 +109,12 @@ public class SyUserApi extends BaseControllerImpl<SyUserDO, SyUserQueryDO> {
     @RequestMapping("login")
     public CommonResult<Map> login(@RequestBody SyUserDO syUserDO) {
         CommonResult<Map> mapCommonResult = loginService.doLogin(syUserDO.getUsername(), syUserDO.getPassword());
+        return mapCommonResult;
+    }
+    @ApiOperation(value = "接受授权码接口", httpMethod = "GET", notes = "接受授权码接口")
+    @RequestMapping("receiveCode")
+    public CommonResult<Map> receiveCode(@RequestParam("code") String code,@RequestParam("id")String id) {
+        CommonResult<Map> mapCommonResult = loginService.doLoginCode(code,id);
         return mapCommonResult;
     }
 }

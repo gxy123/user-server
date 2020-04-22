@@ -9,5 +9,6 @@ import java.util.Map;
 
 public interface LoginService {
     CommonResult<Map> doLogin(String userName, String passsWord);
+    CommonResult<Map> doLoginCode(String code,String id);
 
 }
