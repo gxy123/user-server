@@ -23,8 +23,8 @@
         <spring.version>5.0.4.RELEASE</spring.version>
         <swagger.version>2.7.0</swagger.version>
         <swagger-annotations.version>1.5.22</swagger-annotations.version>
-        <jackson.core.version>2.9.9</jackson.core.version>
-        <jackson.databind.version>2.9.9</jackson.databind.version>
+        <jackson.core.version>2.10.0</jackson.core.version>
+        <jackson.databind.version>2.10.0</jackson.databind.version>
     </properties>
 
     <dependencyManagement>
