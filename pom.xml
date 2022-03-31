@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
+        <spring.boot.version>2.5.12</spring.boot.version>
         <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
         <mybatis.boot.version>1.3.0</mybatis.boot.version>
         <project.build.locales>zh_CN</project.build.locales>
